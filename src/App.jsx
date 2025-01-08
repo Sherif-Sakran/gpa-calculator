@@ -27,17 +27,40 @@ function App() {
   const [selectedLetterGrade, setSelectedLetterGrade] = useState("A");
   const [courseName, setCourseName] = useState("");
 
+  const [counter, setCounter] = useState(1);
+
   // Calculate GPA automatically whenever inputs change
   useEffect(() => {
     calculateGPA();
   }, [creditsEarned, currentGPA, courses]);
 
+  
+
   const addCourse = () => {
+    const finalCourseName = courseName === ""? "Course " + counter : courseName;
+    setCounter(counter + 1);
     setCourses([
       ...courses,
-      { creditHour: selectedCreditHour, letterGrade: selectedLetterGrade, courseName: courseName, includedInGPA: true },
+      { creditHour: selectedCreditHour, letterGrade: selectedLetterGrade, courseName: finalCourseName, includedInGPA: true },
     ]);
+    setCourseName("");
   };
+
+  const removeCourseFromGPA = () => {
+    if(totalCreditHours < selectedCreditHour)
+      {alert("Number of credits earned cannot be less than number of credits in a course");
+
+      return;
+      }
+    const finalCourseName = courseName === ""? "Course " + counter : courseName;
+    setCounter(counter + 1);
+    setCourses([
+      ...courses,
+      { creditHour: -1*selectedCreditHour, letterGrade: selectedLetterGrade, courseName: finalCourseName+ " (removed from GPA)", includedInGPA: true },
+    ]);
+    setCourseName("");
+
+  }
 
   const removeCourse = (index) => {
     const updatedCourses = courses.filter((_, i) => i !== index);
@@ -87,6 +110,7 @@ function App() {
     setCurrentGPA("0");
     setCourses([]);
     setNewGPA(0);
+    setCounter(1);
     setTotalCreditHours(0);
   };
 
@@ -185,16 +209,32 @@ function App() {
   >
     Add Course
   </button>
+  <br />
+  <button
+    onClick={removeCourseFromGPA}
+    style={{
+      backgroundColor: "#008CBA",
+      color: "white",
+      padding: "6px 12px",
+      marginBottom: "15px",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      fontSize: "14px",
+    }}
+  >
+    Remove from GPA
+  </button>
 
   <h2 style={{ fontSize: "20px", marginTop: "10px" }}>Courses</h2>
 
-  <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: "15px", fontSize: "14px" }}>
+  <table style={{ width: "50%", borderCollapse: "collapse", marginBottom: "15px", fontSize: "14px" }}>
     <thead>
       <tr>
         <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Course Name</th>
         <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Credit Hour</th>
         <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Grade</th>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Include?</th>
+        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Calculate?</th>
         <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Remove</th>
       </tr>
     </thead>
