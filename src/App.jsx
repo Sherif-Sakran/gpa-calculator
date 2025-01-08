@@ -115,214 +115,231 @@ function App() {
   };
 
   return (
-<div style={{ fontFamily: "Arial, sans-serif", padding: "10px" }}>
-  <h1 style={{ fontSize: "24px" }}>GPA Calculator</h1>
+<div style={{ fontFamily: "Arial, sans-serif", padding: "20px", maxWidth: "800px", margin: "auto" }}>
+  <h1 style={{ fontSize: "28px", textAlign: "center", color: "#333", marginBottom: "20px" }}>
+    GPA Calculator
+  </h1>
 
-  {/* Credits Earned and Current GPA Inputs */}
-  <div style={{ marginBottom: "15px" }}>
-    <label>
-      <strong>Credits Earned:</strong>
-    </label>
-    <input
-      type="number"
-      value={creditsEarned}
-      onChange={(e) => setCreditsEarned(e.target.value)}
-      placeholder="Enter total credits earned"
-      style={{ marginLeft: "5px", padding: "3px", fontSize: "14px", width: "150px" }}
-    />
-  </div>
-
-  <div style={{ marginBottom: "15px" }}>
-    <label>
-      <strong>Current GPA:</strong>
-    </label>
-    <input
-      type="number"
-      step="0.01"
-      value={currentGPA}
-      onChange={(e) => setCurrentGPA(e.target.value)}
-      placeholder="Enter current GPA"
-      style={{ marginLeft: "5px", padding: "3px", fontSize: "14px", width: "150px" }}
-    />
-  </div>
-
-  {/* New Course Selection */}
-  <div style={{ marginBottom: "15px" }}>
-    <label>
-      <strong>Credit Hour:</strong>
-    </label>
-    <select
-      value={selectedCreditHour}
-      onChange={(e) => setSelectedCreditHour(e.target.value)}
-      style={{ marginLeft: "5px", padding: "3px", fontSize: "14px", width: "60px" }}
-    >
-      {["3", "2", "1"].map((credit) => (
-        <option key={credit} value={credit}>
-          {credit}
-        </option>
-      ))}
-    </select>
-  </div>
-
-  <div style={{ marginBottom: "15px" }}>
-    <label>
-      <strong>Grade:</strong>
-    </label>
-    <select
-      value={selectedLetterGrade}
-      onChange={(e) => setSelectedLetterGrade(e.target.value)}
-      style={{ marginLeft: "5px", padding: "3px", fontSize: "14px", width: "100px" }}
-    >
-      {Object.keys(gradePoints).map((grade) => (
-        <option key={grade} value={grade}>
-          {grade}
-        </option>
-      ))}
-    </select>
-  </div>
-
-  <div style={{ marginBottom: "15px" }}>
-    <label>
-      <strong>Course:</strong>
-    </label>
-    <input
-      type="text"
-      value={courseName}
-      onChange={(e) => setCourseName(e.target.value)}
-      style={{ marginLeft: "5px", padding: "3px", fontSize: "14px", width: "100px" }}
-    >
-    </input>
-  </div>
-
-  <button
-    onClick={addCourse}
+  {/* Input Section */}
+  <div
     style={{
-      backgroundColor: "#008CBA",
-      color: "white",
-      padding: "6px 12px",
-      marginBottom: "15px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      fontSize: "14px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      padding: "20px",
+      marginBottom: "20px",
+      backgroundColor: "#f9f9f9",
     }}
   >
-    Add Course
-  </button>
-  <br />
-  <button
-    onClick={removeCourseFromGPA}
-    style={{
-      backgroundColor: "#008CBA",
-      color: "white",
-      padding: "6px 12px",
-      marginBottom: "15px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      fontSize: "14px",
-    }}
-  >
-    Remove from GPA
-  </button>
+    <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Enter Your Details</h2>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+      <div>
+        <label><strong>Credits Earned:</strong></label>
+        <input
+          type="number"
+          value={creditsEarned}
+          onChange={(e) => setCreditsEarned(e.target.value)}
+          placeholder="e.g., 90"
+          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+        />
+      </div>
+      <div>
+        <label><strong>Current GPA:</strong></label>
+        <input
+          type="number"
+          step="0.01"
+          value={currentGPA}
+          onChange={(e) => setCurrentGPA(e.target.value)}
+          placeholder="e.g., 3.5"
+          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+        />
+      </div>
+      <div>
+        <label><strong>Credit Hour:</strong></label>
+        <select
+          value={selectedCreditHour}
+          onChange={(e) => setSelectedCreditHour(e.target.value)}
+          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+        >
+          {["3", "2", "1"].map((credit) => (
+            <option key={credit} value={credit}>
+              {credit}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label><strong>Grade:</strong></label>
+        <select
+          value={selectedLetterGrade}
+          onChange={(e) => setSelectedLetterGrade(e.target.value)}
+          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+        >
+          {Object.keys(gradePoints).map((grade) => (
+            <option key={grade} value={grade}>
+              {grade}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
 
-  <h2 style={{ fontSize: "20px", marginTop: "10px" }}>Courses</h2>
+    <div style={{ marginTop: "15px", display: "flex", gap: "10px" }}>
+      <button
+        onClick={addCourse}
+        style={{
+          backgroundColor: "#28a745",
+          color: "white",
+          padding: "10px 15px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Add Course
+      </button>
+      <button
+        onClick={removeCourseFromGPA}
+        style={{
+          backgroundColor: "#ffc107",
+          color: "black",
+          padding: "10px 15px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Remove from GPA
+      </button>
+      <button
+        onClick={reset}
+        style={{
+          backgroundColor: "#dc3545",
+          color: "white",
+          padding: "10px 15px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Reset
+      </button>
+    </div>
+  </div>
 
-  <table style={{ width: "50%", borderCollapse: "collapse", marginBottom: "15px", fontSize: "14px" }}>
-    <thead>
-      <tr>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Course Name</th>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Credit Hour</th>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Grade</th>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Calculate?</th>
-        <th style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>Remove</th>
-      </tr>
-    </thead>
-    <tbody>
-      {courses.map((course, index) => (
-        <tr key={index}>
-          <td style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>
-            <input
-              type="text"
-              value={course.courseName}
-              onChange={(e) => updateCourse(index, "courseName", e.target.value)}
-              style={{ padding: "3px", fontSize: "12px" }}
-            >
-            </input>
-          </td>
-          <td style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>
-            <select
-              value={course.creditHour}
-              onChange={(e) => updateCourse(index, "creditHour", e.target.value)}
-              style={{ padding: "3px", fontSize: "12px" }}
-            >
-              {["3", "2", "1"].map((credit) => (
-                <option key={credit} value={credit}>
-                  {credit}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>
-            <select
-              value={course.letterGrade}
-              onChange={(e) => updateCourse(index, "letterGrade", e.target.value)}
-              style={{ padding: "3px", fontSize: "12px" }}
-            >
-              {Object.keys(gradePoints).map((grade) => (
-                <option key={grade} value={grade}>
-                  {grade}
-                </option>
-              ))}
-            </select>
-          </td>
-          <td style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>
-            <input
-              type="checkbox"
-              checked={course.includedInGPA}
-              onChange={() => toggleCourseInclusion(index)}
-              style={{ width: "15px", height: "15px" }}
-            />
-          </td>
-          <td style={{ border: "1px solid #ccc", padding: "5px", textAlign: "center" }}>
-            <button
-              onClick={() => removeCourse(index)}
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                border: "none",
-                padding: "4px 8px",
-                cursor: "pointer",
-                fontSize: "12px",
-              }}
-            >
-              X
-            </button>
-          </td>
+  {/* Course List Section */}
+  <div>
+    <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Courses</h2>
+    <table
+      style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        border: "1px solid #ddd",
+        marginBottom: "20px",
+        textAlign: "left",
+      }}
+    >
+      <thead>
+        <tr>
+          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Course Name</th>
+          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Credit Hour</th>
+          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Grade</th>
+          <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>Calculate?</th>
+          <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>Remove</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {courses.map((course, index) => (
+          <tr key={index}>
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+              <input
+                type="text"
+                value={course.courseName}
+                onChange={(e) => updateCourse(index, "courseName", e.target.value)}
+                style={{ width: "95%", padding: "5px" }}
+              />
+            </td>
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+              <select
+                value={course.creditHour}
+                onChange={(e) => updateCourse(index, "creditHour", e.target.value)}
+                style={{ width: "100%", padding: "5px" }}
+              >
+                {["3", "2", "1"].map((credit) => (
+                  <option key={credit} value={credit}>
+                    {credit}
+                  </option>
+                ))}
+              </select>
+            </td>
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+              <select
+                value={course.letterGrade}
+                onChange={(e) => updateCourse(index, "letterGrade", e.target.value)}
+                style={{ width: "100%", padding: "5px" }}
+              >
+                {Object.keys(gradePoints).map((grade) => (
+                  <option key={grade} value={grade}>
+                    {grade}
+                  </option>
+                ))}
+              </select>
+            </td>
+            <td style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>
+              <input
+                type="checkbox"
+                checked={course.includedInGPA}
+                onChange={() => toggleCourseInclusion(index)}
+              />
+            </td>
+            <td style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>
+              <button
+                onClick={() => removeCourse(index)}
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                X
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-  <button
-    onClick={reset}
+  {/* Summary Section */}
+  <div
     style={{
-      backgroundColor: "#d9534f",
-      color: "white",
-      padding: "6px 12px",
-      marginBottom: "15px",
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      fontSize: "14px",
-      marginLeft: "10px",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      padding: "20px",
+      backgroundColor: "#f9f9f9",
     }}
   >
-    Reset
-  </button>
-
-  <NewGPA newGPA={newGPA} totalCreditHours={totalCreditHours} />
+    <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Summary</h2>
+    <table style={{ width: "100%", textAlign: "left" }}>
+      <tbody>
+        <tr>
+          <td><strong>New GPA:</strong></td>
+          <td>{newGPA.toFixed(4)}</td>
+        </tr>
+        <tr>
+          <td><strong>Total Credit Hours:</strong></td>
+          <td>{totalCreditHours || "0"}</td>
+        </tr>
+        <tr>
+          <td><strong>Total Credit Points:</strong></td>
+          <td>{newGPA * totalCreditHours || "0"}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
 
   );
 }
