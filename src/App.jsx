@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NewGPA from "./components/NewGPA";
+import CoursesTable from "./components/CoursesTable";
 
 const gradePoints = {
   "A": 4.0,
@@ -139,7 +140,7 @@ function App() {
           value={creditsEarned}
           onChange={(e) => setCreditsEarned(e.target.value)}
           placeholder="e.g., 90"
-          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+          style={{ width: "95%", padding: "8px", marginTop: "5px" }}
         />
       </div>
       <div>
@@ -150,7 +151,7 @@ function App() {
           value={currentGPA}
           onChange={(e) => setCurrentGPA(e.target.value)}
           placeholder="e.g., 3.5"
-          style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+          style={{ width: "95%", padding: "8px", marginTop: "5px" }}
         />
       </div>
       <div>
@@ -229,115 +230,11 @@ function App() {
   {/* Course List Section */}
   <div>
     <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Courses</h2>
-    <table
-      style={{
-        width: "100%",
-        borderCollapse: "collapse",
-        border: "1px solid #ddd",
-        marginBottom: "20px",
-        textAlign: "left",
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Course Name</th>
-          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Credit Hour</th>
-          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Grade</th>
-          <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>Calculate?</th>
-          <th style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>Remove</th>
-        </tr>
-      </thead>
-      <tbody>
-        {courses.map((course, index) => (
-          <tr key={index}>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <input
-                type="text"
-                value={course.courseName}
-                onChange={(e) => updateCourse(index, "courseName", e.target.value)}
-                style={{ width: "95%", padding: "5px" }}
-              />
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <select
-                value={course.creditHour}
-                onChange={(e) => updateCourse(index, "creditHour", e.target.value)}
-                style={{ width: "100%", padding: "5px" }}
-              >
-                {["3", "2", "1"].map((credit) => (
-                  <option key={credit} value={credit}>
-                    {credit}
-                  </option>
-                ))}
-              </select>
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-              <select
-                value={course.letterGrade}
-                onChange={(e) => updateCourse(index, "letterGrade", e.target.value)}
-                style={{ width: "100%", padding: "5px" }}
-              >
-                {Object.keys(gradePoints).map((grade) => (
-                  <option key={grade} value={grade}>
-                    {grade}
-                  </option>
-                ))}
-              </select>
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>
-              <input
-                type="checkbox"
-                checked={course.includedInGPA}
-                onChange={() => toggleCourseInclusion(index)}
-              />
-            </td>
-            <td style={{ border: "1px solid #ddd", padding: "8px", textAlign: "center" }}>
-              <button
-                onClick={() => removeCourse(index)}
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 10px",
-                  cursor: "pointer",
-                }}
-              >
-                X
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
   </div>
+  <CoursesTable courses={courses} updateCourse={updateCourse} removeCourse={removeCourse} toggleCourseInclusion={toggleCourseInclusion} gradePoints={gradePoints} />
 
   {/* Summary Section */}
-  <div
-    style={{
-      border: "1px solid #ddd",
-      borderRadius: "8px",
-      padding: "20px",
-      backgroundColor: "#f9f9f9",
-    }}
-  >
-    <h2 style={{ fontSize: "20px", marginBottom: "10px" }}>Summary</h2>
-    <table style={{ width: "100%", textAlign: "left" }}>
-      <tbody>
-        <tr>
-          <td><strong>New GPA:</strong></td>
-          <td>{newGPA.toFixed(4)}</td>
-        </tr>
-        <tr>
-          <td><strong>Total Credit Hours:</strong></td>
-          <td>{totalCreditHours || "0"}</td>
-        </tr>
-        <tr>
-          <td><strong>Total Credit Points:</strong></td>
-          <td>{newGPA * totalCreditHours || "0"}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <NewGPA newGPA={newGPA} totalCreditHours={totalCreditHours}/>
 </div>
 
 
